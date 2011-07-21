@@ -1,6 +1,34 @@
-= dijkstra
+= Dijkstra gem
 
-Description goes here.
+This gem solves the shortest path problem using Dijkstra's alghoritm. It calculates the shortest path and distance between the given start vertex and any other.
+
+Suppose you have an undirected graph with 5 vertexes and non-negative values as distances between them. You can represent it as a matrix:
+
+  | inf |  2  |  1  | inf | inf
+  |  2  | inf |  4  |  6  | inf
+  |  1  |  4  | inf |  1  |  2
+  | inf |  6  |  1  | inf |  3
+  | inf | inf |  2  |  3  | inf
+
+where _inf_ means no direct connection between vertexes.
+
+In Ruby we can store it as an array:
+
+  input = [
+    [nil, 2,   1,   nil, nil],
+    [2,   nil, 4,   6,   nil],
+    [1,   4,   nil, 1,   2],
+    [nil, 6,   1,   nil, 3],
+    [nil, nil, 2,   3,   nil]  
+  ]
+
+Next, you should choose start vertex for which calculations will be made. For example 0:
+
+  result = Dijkstra.shortest_path(input, 0)
+
+Result stores the shortest path and its distance:
+  result.path(4) => [0,2,4]
+  result.distance(4) => 3
 
 == Contributing to dijkstra
  
