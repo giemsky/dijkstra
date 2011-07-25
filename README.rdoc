@@ -22,13 +22,13 @@ In Ruby we can store it as an array:
     [nil, nil, 2,   3,   nil]  
   ]
 
-Next, you should choose start vertex for which calculations will be made. For example 0:
+Next, initialize graph:
 
-  result = Dijkstra.shortest_path(input, 0)
+  graph = Dijkstra::Graph.new(input)
 
-Result stores the shortest path and its distance:
-  result.path(4) => [0,2,4]
-  result.distance(4) => 3
+Result stores the shortest path and its distance betweend start and end vertexes:
+  graph.path(0, 4) => [0,2,4]
+  graph.distance(0, 4) => 3
 
 == Contributing to dijkstra
  
