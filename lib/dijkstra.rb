@@ -14,7 +14,7 @@ module Dijkstra
   #  2   nil   4    6   nil
   #  1    4   nil   1    2
   # nil   6    1   nil   3
-  # nil  nil   2    3   nil   
+  # nil  nil   2    3   nil
   #
   def self.shortest_path(distance_matrix, start_vertex)
     valid_graph?(distance_matrix)
@@ -23,7 +23,7 @@ module Dijkstra
     distances_from_start = calculate_distances_from_start(distance_matrix, start_vertex)
     
     # store for best distances from start calculated for each vertex
-    best_distances = distances_from_start.dup
+    best_distances = calculate_distances_from_start(distance_matrix, start_vertex)
     best_distances << DistanceFromStart.new(start_vertex, 0)
 
     until distances_from_start.empty? do
@@ -60,7 +60,8 @@ module Dijkstra
   end
   
   def self.valid_graph?(input)
+    raise ArgumentError, "Only Array allowed" unless input.is_a?(Array)
     # check if rows and columns size matches
-    raise ArgumentError, "Different rows and columns size" if input.inject(0){|sum, row| sum + row.size} % input.size != 0
+    raise ArgumentError, "Different rows and columns size" unless input.size == input.transpose.size
   end
 end

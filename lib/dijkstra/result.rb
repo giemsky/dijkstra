@@ -1,16 +1,29 @@
 module Dijkstra
   class Result < Struct.new(:predecessors, :best_distances, :start_vertex)
-    def path(target_vertex, path = Array.new)   
-      if target_vertex == start_vertex
-        path << start_vertex
-        return path.reverse 
-      end
+    def shortest_path(target_vertex)
+      return Array.new unless find_distance(target_vertex)
+      find_path(target_vertex)
+    end
 
-      path(predecessors[target_vertex] || start_vertex, path << target_vertex)
+    def distance(target_vertex)
+      result = find_distance(target_vertex)
+      return unless result
+      result.distance
     end
     
-    def distance(target_vertex)
-      best_distances.find{|sr| sr.vertex_number == target_vertex}.distance
+    private
+    
+    def find_path(target_vertex, path = Array.new)   
+      if target_vertex == start_vertex
+        path << start_vertex
+        return path.reverse
+      end
+
+      find_path(predecessors[target_vertex] || start_vertex, path << target_vertex)
+    end
+    
+    def find_distance(number)
+      best_distances.find{|sr| sr.vertex_number == number}
     end
   end
 end
