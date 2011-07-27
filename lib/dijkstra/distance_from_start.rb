@@ -1,5 +1,5 @@
 module Dijkstra
-  class DistanceFromStart < Struct.new(:vertex_number, :distance)
+  class DistanceFromStart < Struct.new(:vertex, :distance)
     include Comparable
 
     def <=>(other)

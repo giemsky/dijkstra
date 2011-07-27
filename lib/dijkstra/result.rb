@@ -22,8 +22,8 @@ module Dijkstra
       find_path(predecessors[target_vertex] || start_vertex, path << target_vertex)
     end
     
-    def find_distance(number)
-      best_distances.find{|sr| sr.vertex_number == number}
+    def find_distance(vertex)
+      best_distances.find{|sr| sr.vertex == vertex}
     end
   end
 end
