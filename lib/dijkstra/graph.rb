@@ -1,6 +1,6 @@
 module Dijkstra
   class Graph
-    INFINITY = 1 << 64
+    INFINITY = 1/0.0
     
     #
     # distance_matrix - Graph Array as edge distances, nil for no connections
@@ -16,17 +16,15 @@ module Dijkstra
     def initialize(distance_matrix)
       @distance_matrix = distance_matrix
       valid?
-      @results = Hash.new
+      @results = {}
     end
     
     def distance(start_vertex, end_vertex)
-      @results[start_vertex] ||= calculate_shortest_path(start_vertex)
-      @results[start_vertex].distance(end_vertex)
+      calculation_result(start_vertex).distance(end_vertex)
     end
     
     def path(start_vertex, end_vertex)
-      @results[start_vertex] ||= calculate_shortest_path(start_vertex)
-      @results[start_vertex].shortest_path(end_vertex)
+      calculation_result(start_vertex).shortest_path(end_vertex)
     end
     
     private
@@ -37,8 +35,12 @@ module Dijkstra
       raise ArgumentError, "Different rows and columns size" unless @distance_matrix.size == @distance_matrix.transpose.size
     end
     
+    def calculation_result(start_vertex)
+      @results[start_vertex] ||= calculate_shortest_path(start_vertex)
+    end
+    
     def calculate_shortest_path(start_vertex)
-      predecessors = Array.new
+      predecessors = []
       distances_from_start = calculate_distances_from_start(start_vertex)
 
       # store for best distances from start calculated for each vertex
@@ -68,7 +70,7 @@ module Dijkstra
     end
 
     def calculate_distances_from_start(start_vertex)
-      distances_from_start = Array.new
+      distances_from_start = []
 
       @distance_matrix[start_vertex].each_with_index do |distance, number|
         next if number == start_vertex
